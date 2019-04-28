@@ -17,14 +17,17 @@ def buildTimestamp(baseDate, rawDate):
 def buildLine(baseDate, rawDate, amount, location):
     return "linky,location={} conso={} {}".format(location, amount, buildTimestamp(baseDate, rawDate))    
 
-def convert(sourcePath, location):
+def convert(sourcePath, location, refDate=None):
     try: 
         with open(sourcePath) as source:
             data = json.load(source)
-            yesterday = datetime.datetime.now() - datetime.timedelta(days=1)
-            yesterday.replace(second=0, microsecond=0)
+            if refDate is None:
+                d = datetime.datetime.now() - datetime.timedelta(days=1)
+            else:
+                d = refDate
+            d.replace(second=0, microsecond=0)
             for curHour in data['hourly']:
-                print("{}".format(buildLine(yesterday, curHour['time'], curHour['conso'], location)))
+                print("{}".format(buildLine(d, curHour['time'], curHour['conso'], location)))
     except IOError as e:
         print("Error when opening source file: {}", e)
         return RET_EXEC_FAILURE
@@ -38,11 +41,16 @@ def convert(sourcePath, location):
 parser = argparse.ArgumentParser()
 parser.add_argument('-s', '--source', required=True, help='Source file')
 parser.add_argument('-l', '--location', required=True, help='Location identifier')
+parser.add_argument('-d', '--date', required=False, help='Concerned date (format yyyyddmm)')
 args = parser.parse_args()
 
 if not os.path.exists(args.source):
     print("Source '{}' does not exist".format(args.source))
     sys.exit(RET_CONF_FAILURE)
 
-ret=convert(args.source, args.location)
+if args.date is not None:
+    d = datetime.datetime.strptime(args.date, "%Y%m%d")
+else:
+    d=None
+ret=convert(args.source, args.location, d)
 sys.exit(ret)
