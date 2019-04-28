@@ -20,7 +20,7 @@ if [ $status -ne 0 ]; then
     exit 1
 fi
 
-./pusher_v1.0_linux_386 -u $iurl -d $idb -f work/data.txt
+./pusher -u $iurl -d $idb -f work/data.txt
 status=$?
 if [ $status -ne 0 ]; then
     exit 1
