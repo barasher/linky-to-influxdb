@@ -1,6 +1,10 @@
 # Linky to InfluxDB
 
-**Linky to InfluxDB** is a Docker image that stores Enedis's Linky daily power consumption to InfluxDB.
+**Linky to InfluxDB** is a Docker image that stores Enedis's Linky daily power consumption to [InfluxDB](https://docs.influxdata.com/influxdb/).
+
+With a [Chronograf](https://www.influxdata.com/time-series-platform/chronograf/) or a [Grafana](https://grafana.com/) connected to the InfluxDB database, such representations will be possible :
+
+![Chronograf](chronografLinky.png)
 
 ## Principles
 
@@ -17,7 +21,7 @@ docker build -t barasher/linky-to-influxdb:latest .
 ## Execution
 
 ```
-docker run --rm -it
+docker run --rm
   --env LTI_LINKY_USER=[Enedis login]
   --env LTI_LINKY_PASS=[Enedis password]
   --env LTI_IDB_URL=[InfluxDB URL]
