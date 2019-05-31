@@ -41,7 +41,7 @@ def convert(sourcePath, location, refDate=None):
 parser = argparse.ArgumentParser()
 parser.add_argument('-s', '--source', required=True, help='Source file')
 parser.add_argument('-l', '--location', required=True, help='Location identifier')
-parser.add_argument('-d', '--date', required=False, help='Concerned date (format yyyyddmm)')
+parser.add_argument('-d', '--date', required=False, help='Concerned date (format dd/mm/yyyy)')
 args = parser.parse_args()
 
 if not os.path.exists(args.source):
@@ -49,7 +49,7 @@ if not os.path.exists(args.source):
     sys.exit(RET_CONF_FAILURE)
 
 if args.date is not None:
-    d = datetime.datetime.strptime(args.date, "%Y%m%d")
+    d = datetime.datetime.strptime(args.date, "%d/%m/%Y")
 else:
     d=None
 ret=convert(args.source, args.location, d)
