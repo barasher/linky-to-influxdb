@@ -20,6 +20,15 @@ docker build -t barasher/linky-to-influxdb:latest .
 
 ## Execution
 
+Environment variables :
+- **LTI_LINKY_USER**: Enedis account login, required
+- **LTI_LINKY_PASS**: Enedis account password, required
+- **LTI_IDB_URL**: InfluxDB URL, required (ex : http://192.168.0.2:8086)
+- **LTI_IDB_DB**: InfluxDB database, required
+- **LTI_IDB_LOC**: Location, required (No space and special character)
+
+### Retrieve yesterday's data
+
 ```
 docker run --rm
   --env LTI_LINKY_USER=[Enedis login]
@@ -30,9 +39,25 @@ docker run --rm
   barasher/linky-to-influxdb:latest
 ```
 
-Environment variables :
-- **LTI_LINKY_USER**: Enedis account login, required
-- **LTI_LINKY_PASS**: Enedis account password, required
-- **LTI_IDB_URL**: InfluxDB URL, required (ex : http://192.168.0.2:8086)
-- **LTI_IDB_DB**: InfluxDB database, required
-- **LTI_IDB_LOC**: Location, required (No space and special character)
+### Retrieve specific day data
+
+```
+docker run --rm
+  --env LTI_LINKY_USER=[Enedis login]
+  --env LTI_LINKY_PASS=[Enedis password]
+  --env LTI_IDB_URL=[InfluxDB URL]
+  --env LTI_IDB_DB=[InfluxDB database]
+  --env LTI_IDB_LOC=[Localisation]
+  barasher/linky-to-influxdb:latest ./recover.sh [dd/mm/yyyy]
+```
+To retrieve data concerning the 31st of December, 2018, here is the full command line :
+
+```
+docker run --rm 
+  --env LTI_LINKY_USER=[Enedis login]
+  --env LTI_LINKY_PASS=[Enedis password]
+  --env LTI_IDB_URL=[InfluxDB URL]
+  --env LTI_IDB_DB=[InfluxDB database]
+  --env LTI_IDB_LOC=[Localisation]
+  barasher/linky-to-influxdb:latest ./recover.sh 31/12/2018
+```
