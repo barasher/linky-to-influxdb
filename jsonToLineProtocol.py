@@ -3,19 +3,17 @@ import json
 import os
 import sys
 import datetime
+import pytz
 
 RET_OK=0
 RET_CONF_FAILURE=1
 RET_EXEC_FAILURE=2
 
-epoch = datetime.datetime(1970, 1, 1)
+parisTz = pytz.timezone('Europe/Paris')
 
-def buildTimestamp(baseDate, rawDate):
-    d = baseDate.replace(hour=int(rawDate[:2]), minute=int(rawDate[3:]))
-    return int((d - epoch).total_seconds()) * 1000000000
-
-def buildLine(baseDate, rawDate, amount, location):
-    return "linky,location={} conso={} {}".format(location, amount, buildTimestamp(baseDate, rawDate))    
+def buildLine(strDate, amount, location):
+    parsedDate = parisTz.localize(d.strptime(strDate, '%d/%m/%Y %H:%M'))
+    return "linky,location={} conso={} {}".format(location, amount, round(parsedDate.timestamp() * 1000000000))
 
 def convert(sourcePath, location, refDate=None):
     try: 
@@ -26,8 +24,10 @@ def convert(sourcePath, location, refDate=None):
             else:
                 d = refDate
             d.replace(second=0, microsecond=0)
+            strD = d.strftime('%d/%m/%Y')
             for curHour in data['hourly']:
-                print("{}".format(buildLine(d, curHour['time'], curHour['conso'], location)))
+                strH = "{} {}".format(strD, curHour['time'])
+                print("{}".format(buildLine(strH, curHour['conso'], location)))
     except IOError as e:
         print("Error when opening source file: {}", e)
         return RET_EXEC_FAILURE
