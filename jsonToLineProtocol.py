@@ -12,7 +12,7 @@ RET_EXEC_FAILURE=2
 parisTz = pytz.timezone('Europe/Paris')
 
 def buildLine(strDate, amount, location):
-    parsedDate = parisTz.localize(d.strptime(strDate, '%d/%m/%Y %H:%M'))
+    parsedDate = parisTz.localize(datetime.datetime.strptime(strDate, '%d/%m/%Y %H:%M'))
     return "linky,location={} conso={} {}".format(location, amount, round(parsedDate.timestamp() * 1000000000))
 
 def convert(sourcePath, location, refDate=None):
