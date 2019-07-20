@@ -12,7 +12,19 @@ With a [Chronograf](https://www.influxdata.com/time-series-platform/chronograf/)
 - Pylinky data is converted to [InfluxDB line protocol](https://docs.influxdata.com/influxdb/v1.7/write_protocols/line_protocol_tutorial/)
 - [influxdb-pusher](https://github.com/barasher/influxdb-pusher) is used to push converted data to InfluxDB
 
-## Image building
+## Docker image
+
+### Image retrieving
+
+```
+docker pull barasher/linky-to-influxdb:[tag]
+```
+
+- **[version]** : linux 386 version, sample : `barasher/linky-to-influxdb:1.1`
+- **[version]-armv7** : armv7 version (raspberry pi, ...), sample : `barasher/linky-to-influxdb:1.1-armv7` 
+
+
+### Image building
  
 ```
 docker build -t barasher/linky-to-influxdb:latest .
