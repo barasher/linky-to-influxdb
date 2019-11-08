@@ -51,7 +51,7 @@ docker run --rm
   barasher/linky-to-influxdb:latest
 ```
 
-### Retrieve specific day data
+### Retrieve specific period data
 
 ```
 docker run --rm
@@ -60,9 +60,10 @@ docker run --rm
   --env LTI_IDB_URL=[InfluxDB URL]
   --env LTI_IDB_DB=[InfluxDB database]
   --env LTI_IDB_LOC=[Localisation]
-  barasher/linky-to-influxdb:latest ./recover.sh [dd/mm/yyyy]
+  barasher/linky-to-influxdb:latest ./recover.sh [first date (format dd/mm/yyyy)] [how many days]
 ```
-To retrieve data concerning the 31st of December, 2018, here is the full command line :
+
+To retrieve data concerning the 31st of December 2018, here is the full command line :
 
 ```
 docker run --rm 
@@ -71,5 +72,17 @@ docker run --rm
   --env LTI_IDB_URL=[InfluxDB URL]
   --env LTI_IDB_DB=[InfluxDB database]
   --env LTI_IDB_LOC=[Localisation]
-  barasher/linky-to-influxdb:latest ./recover.sh 31/12/2018
+  barasher/linky-to-influxdb:latest ./recover.sh 31/12/2018 1
+```
+
+To retrieve data concerning 12 days from the 1st of February 2018 (included), here is the full command line :
+
+```
+docker run --rm 
+  --env LTI_LINKY_USER=[Enedis login]
+  --env LTI_LINKY_PASS=[Enedis password]
+  --env LTI_IDB_URL=[InfluxDB URL]
+  --env LTI_IDB_DB=[InfluxDB database]
+  --env LTI_IDB_LOC=[Localisation]
+  barasher/linky-to-influxdb:latest ./recover.sh 01/02/2018 12
 ```
