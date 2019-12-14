@@ -4,7 +4,6 @@ import base64
 import datetime
 from dateutil.relativedelta import relativedelta
 import requests
-from fake_useragent import UserAgent
 
 LOGIN_URL = "https://espace-client-connexion.enedis.fr/auth/UI/Login"
 HOST = "https://espace-client-particuliers.enedis.fr/group/espace-particuliers"
@@ -51,7 +50,6 @@ class LinkyClient(object):
         """Set http session."""
         if self._session is None:
             self._session = requests.session()
-            # self._session.headers.update({'User-agent': str(UserAgent().random)})
             self._session.headers.update(
                 {'User-agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:67.0) Gecko/20100101 Firefox/67.0'})
         return self._post_login_page()
