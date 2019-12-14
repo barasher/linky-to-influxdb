@@ -2,6 +2,7 @@ import argparse
 import sys
 import json
 import linkyClient
+import os
 import datetime
 from dateutil.relativedelta import relativedelta
 
@@ -10,10 +11,13 @@ def main():
     """Main function"""
     parser = argparse.ArgumentParser()
     parser.add_argument('-u', '--username', required=True, help='Enedis username')
-    parser.add_argument('-p', '--password', required=True, help='Password')
+    parser.add_argument('-p', '--password', help='Enedis password. Can be read form LTI_LINKY_PASS Environment')
     parser.add_argument('-d', '--date', required=False, help='Day (dd/mm/aaaa)')
     args = parser.parse_args()
-
+    if args.password:
+        LTI_LINKY_PASS = args.password
+    else:
+        LTI_LINKY_PASS = os.getenv('LTI_LINKY_PASS')
     start = datetime.date.today() - relativedelta(days=1)
     try:
         if args.date:
@@ -23,7 +27,7 @@ def main():
         return 1
     end = start + relativedelta(days=1)
 
-    client = linkyClient.LinkyClient(args.username, args.password)
+    client = linkyClient.LinkyClient(args.username, LTI_LINKY_PASS)
 
     try:
         client.login()
