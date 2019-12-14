@@ -86,3 +86,8 @@ docker run --rm
   --env LTI_IDB_LOC=[Localisation]
   barasher/linky-to-influxdb:latest ./recover.sh 01/02/2018 12
 ```
+
+## Changelog
+
+- [v1.3](https://github.com/barasher/linky-to-influxdb/milestone/3)
+  - [Add secure password management](https://github.com/barasher/linky-to-influxdb/pull/7) thanks to @roondar
