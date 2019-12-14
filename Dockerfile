@@ -4,10 +4,11 @@ WORKDIR /root/linky-to-influx
 RUN mkdir work
 COPY . .
 
-RUN apt-get update -qq
-RUN apt-get install -qq -y wget
-RUN pip install -q  -r requirements.txt
-RUN wget -q -O pusher https://github.com/barasher/influxdb-pusher/releases/download/v1.1/pusher_v1.1_linux_386
-RUN chmod u+x pusher
+RUN apt-get update -qq \
+&& apt-get install -qq -y wget \
+&& rm -rf /var/lib/apt/lists/* \
+&& pip install -q  -r requirements.txt \
+&& wget -q -O pusher https://github.com/barasher/influxdb-pusher/releases/download/v1.1/pusher_v1.1_linux_386 \
+&& chmod u+x pusher
 
 CMD [ "./run.sh" ]
