@@ -5,18 +5,20 @@ import sys
 import datetime
 import pytz
 
-RET_OK=0
-RET_CONF_FAILURE=1
-RET_EXEC_FAILURE=2
+RET_OK = 0
+RET_CONF_FAILURE = 1
+RET_EXEC_FAILURE = 2
 
 parisTz = pytz.timezone('Europe/Paris')
+
 
 def buildLine(strDate, amount, location):
     parsedDate = parisTz.localize(datetime.datetime.strptime(strDate, '%d/%m/%Y %H:%M'))
     return "linky,location={} conso={} {}".format(location, amount, round(parsedDate.timestamp() * 1000000000))
 
+
 def convert(sourcePath, location, refDate=None):
-    try: 
+    try:
         with open(sourcePath) as source:
             data = json.load(source)
             if refDate is None:
@@ -38,6 +40,7 @@ def convert(sourcePath, location, refDate=None):
         source.close()
     return RET_OK
 
+
 parser = argparse.ArgumentParser()
 parser.add_argument('-s', '--source', required=True, help='Source file')
 parser.add_argument('-l', '--location', required=True, help='Location identifier')
@@ -51,6 +54,6 @@ if not os.path.exists(args.source):
 if args.date is not None:
     d = datetime.datetime.strptime(args.date, "%d/%m/%Y")
 else:
-    d=None
-ret=convert(args.source, args.location, d)
+    d = None
+ret = convert(args.source, args.location, d)
 sys.exit(ret)
