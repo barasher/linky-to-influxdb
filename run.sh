@@ -3,6 +3,7 @@
 rm -rf work/*
 
 luser=${LTI_LINKY_USER?"No Linky username specified"}
+lpass=${LTI_LINKY_PASS?"No Linky password specified"}
 iurl=${LTI_IDB_URL?"No InfluxDB URL specified"}
 idb=${LTI_IDB_DB?"No database specified"}
 iloc=${LTI_IDB_LOC?"No localisation specified"}
