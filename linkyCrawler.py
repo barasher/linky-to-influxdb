@@ -3,6 +3,7 @@ import sys
 import json
 import linkyClient
 import os
+import logging
 import datetime
 from dateutil.relativedelta import relativedelta
 
@@ -23,7 +24,7 @@ def main():
         if args.date:
             start = datetime.datetime.strptime(args.date, '%d/%m/%Y')
     except Exception as exp:
-        print(exp)
+        logging.exception(exp, exc_info=False)
         return 1
     end = start + relativedelta(days=1)
 
@@ -33,7 +34,7 @@ def main():
         client.login()
         client.get_data_per_period(client.PERIOD_HOURLY, start, end)
     except BaseException as exp:
-        print(exp)
+        logging.exception(exp, exc_info=False)
         return 1
     finally:
         client.close_session()
