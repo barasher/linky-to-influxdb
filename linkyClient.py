@@ -111,7 +111,7 @@ class LinkyClient(object):
         except OSError as e:
             raise PyLinkyError("Could not access enedis.fr: " + str(e))
 
-        if raw_res.text is "":
+        if raw_res.text is "" or "nonActive" in raw_res.text:
             raise PyLinkyError("No data")
 
         if 302 == raw_res.status_code and "/messages/maintenance.html" in raw_res.text:
