@@ -20,8 +20,8 @@ With a [Chronograf](https://www.influxdata.com/time-series-platform/chronograf/)
 docker pull barasher/linky-to-influxdb:[tag]
 ```
 
-- **[version]** : linux 386 version, sample : `barasher/linky-to-influxdb:1.1`
-- **[version]-armv7** : armv7 version (raspberry pi, ...), sample : `barasher/linky-to-influxdb:1.1-armv7` 
+- **[version]** : linux 386 version, sample : `barasher/linky-to-influxdb:1.3.1`
+- **[version]-armv7** : armv7 version (raspberry pi, ...), sample : `barasher/linky-to-influxdb:1.3.1-armv7` 
 
 
 ### Image building
@@ -91,3 +91,5 @@ docker run --rm
 
 - [v1.3](https://github.com/barasher/linky-to-influxdb/milestone/3)
   - [Add secure password management](https://github.com/barasher/linky-to-influxdb/pull/7) thanks to @roondar
+- [v1.3.1](https://github.com/barasher/linky-to-influxdb/milestone/4)
+  - [Better error logging](https://github.com/barasher/linky-to-influxdb/pull/9) thanks to @roondar
